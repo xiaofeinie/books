@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {#    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+    <link rel="stylesheet" href="/static/bootstrap.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border: 2px solid;
+            border-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 1) rgba(0, 0, 0, 1) rgba(0, 0, 0, 0.5);
+        }
+
+        table td {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            text-align: center;
+            vertical-align: middle;
+            padding: 4px 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>首页</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="btn-group" role="group" aria-label="...">
+
+
+                <a href='/add_book/'>
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-success foom">添加书籍</button>
+                </a>
+            </div>
+            <table class="center table table-hover table-striped small">
+                <tr>
+                    <td>书籍名称</td>
+                    <td>书籍价格</td>
+                    <td>出版日期</td>
+                    <td>出版社</td>
+                    <td>删除操作</td>
+                    <td>修改操作</td>
+                </tr>
+
+                {% for foo in ret %}
+                    <tr>
+                        <td>{{ foo.title }}</td>
+                        <td>{{ foo.price }}</td>
+                        <td>{{ foo.pub_date|date:'Y-m-d' }}</td>
+                        <td>{{ foo.publish }}</td>
+                        <td>
+                            <a href="/delbook/?id={{ foo.id }}" class="a1">
+                                {% csrf_token %}
+                                <button type="button" class="btn btn-danger foom">删除</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/updbook/?id={{ foo.id }}" class="a1">
+                                {% csrf_token %}
+                                <button type="button" class="btn btn-info foom">修改</button>
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
